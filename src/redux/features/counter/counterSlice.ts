@@ -1,10 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type TInitialState = {
+type TCounterState = {
   count: number;
 };
 
-const initialState: TInitialState = { count: 0 };
+// type TChange = {
+//   type: string;
+//   payload?: number;
+// };
+
+type TIncrementByAmountPayload = {
+  value: number;
+};
+
+// type TAction = TChangeByAmount;
+
+const initialState: TCounterState = { count: 0 };
 
 const counterSlice = createSlice({
   name: "counter",
@@ -16,10 +27,13 @@ const counterSlice = createSlice({
     decrement: (state) => {
       state.count = state.count - 1;
     },
-    incrementByInput: (state, action) => {
-      state.count = state.count + action.payload;
+    incrementByInput: (
+      state,
+      action: PayloadAction<TIncrementByAmountPayload>
+    ) => {
+      state.count = state.count + action.payload.value;
     },
-    decrementByInput: (state, action) => {
+    decrementByInput: (state, action: PayloadAction<number>) => {
       state.count = state.count - action.payload;
     },
   },
